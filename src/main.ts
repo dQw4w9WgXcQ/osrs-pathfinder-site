@@ -1,23 +1,22 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter'
+// import './style.css'
+import 'leaflet/dist/leaflet.css'
+import * as L from 'leaflet'
+import {createComponentsImageLayer} from "./components";
+import {createRegionIndicatorLayer} from './region-indicator';
+import {createLayerControl} from './layer-control';
+import {registerHoveredTile} from "./hovered-tile";
+import {initCursor} from "./cursor";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const map = L.map('map', {crs: L.CRS.Simple}).setView([3231.5, 3231.5], 2)
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const componentsImageLayer = createComponentsImageLayer();
+
+const regionIndicatorLayer = createRegionIndicatorLayer(map);
+map.addLayer(regionIndicatorLayer)
+
+const layerControl = createLayerControl(componentsImageLayer, regionIndicatorLayer)
+map.addControl(layerControl)
+
+registerHoveredTile(map)
+
+initCursor()
