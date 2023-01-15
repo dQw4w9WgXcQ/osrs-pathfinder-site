@@ -1,18 +1,22 @@
 import * as L from "leaflet";
+import {LatLng} from "leaflet";
 
-let hoveredTile: L.Rectangle | undefined = undefined
+let hoveredTile: L.Rectangle = L.rectangle(
+    getTileBounds(new LatLng(0, 0)),
+    {color: 'yellow', weight: 2, interactive: false}
+)
 
 export function registerHoveredTile(map: L.Map) {
+    hoveredTile.addTo(map)
     map.on('mousemove', (e) => {
-        let lat = Math.trunc(e.latlng.lat)
-        let lng = Math.trunc(e.latlng.lng)
-        let bounds = L.latLngBounds([lat, lng], [lat + 1, lng + 1])
-
-        if (hoveredTile === undefined) {
-            hoveredTile = L.rectangle(bounds, {color: 'yellow', weight: 2, interactive: false})
-            hoveredTile.addTo(map)
-        }
+        let bounds = getTileBounds(e.latlng)
 
         hoveredTile.setBounds(bounds)
     })
+}
+
+export function getTileBounds(latlng: L.LatLng): L.LatLngBounds {
+    let lat = Math.trunc(latlng.lat)
+    let lng = Math.trunc(latlng.lng)
+    return L.latLngBounds([lat, lng], [lat + 1, lng + 1])
 }
