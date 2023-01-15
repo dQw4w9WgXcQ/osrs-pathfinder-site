@@ -9,7 +9,7 @@ export function createBlockedLayer(): L.TileLayer {
             maxNativeZoom: 0,
             minNativeZoom: 0,
             maxZoom: 5,
-            minZoom: -3,
+            minZoom: -1,
             opacity: 0.75,
         }
     )

@@ -6,7 +6,7 @@ let hoveredTile: L.Rectangle = L.rectangle(
     {color: 'yellow', weight: 2, interactive: false}
 )
 
-export function registerHoveredTile(map: L.Map) {
+export function addHoveredTile(map: L.Map) {
     hoveredTile.addTo(map)
     map.on('mousemove', (e) => {
         let bounds = getTileBounds(e.latlng)

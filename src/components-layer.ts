@@ -9,8 +9,8 @@ export function createComponentsLayer(): L.TileLayer {
             maxNativeZoom: 0,
             minNativeZoom: 0,
             maxZoom: 5,
-            minZoom: -3,
-            opacity: 0.5,
+            minZoom: -1,
+            opacity: 0.4,
         }
     )
 
