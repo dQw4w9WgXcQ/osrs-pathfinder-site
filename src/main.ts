@@ -5,7 +5,7 @@ import {createComponentsLayer} from "./components-layer";
 import {createBlockedLayer} from "./blocked-layer";
 import {createRegionIndicatorLayer} from './region-indicator-layer';
 import {registerHoveredTile} from "./hovered-tile";
-import {changePlane} from "./plane-control";
+import {addPlaneControl} from "./plane-control";
 
 const map = L.map('map', {crs: L.CRS.Simple}).setView([3231.5, 3231.5], 2)
 
@@ -26,11 +26,10 @@ const layerControl = L.control.layers(
     {collapsed: false}
 )
 
-changePlane(0)
-
 map.addLayer(mapLayer)
 map.addControl(layerControl)
+addPlaneControl(map)
 
 registerHoveredTile(map)
 
-document.getElementById("map")!.style.setProperty('cursor', 'url(/cursor-dragon-scimitar.png), auto')
+//document.getElementById("map")!.style.setProperty('cursor', 'url(/cursor-dragon-scimitar.png), auto')
