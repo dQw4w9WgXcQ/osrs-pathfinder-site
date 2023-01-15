@@ -7,7 +7,7 @@ const REGION_SIZE = 64
 const Y_MAX = (REGION_X_MAX + 1) * REGION_SIZE
 const X_MAX = (REGION_Y_MAX + 1) * REGION_SIZE
 
-let regionInfoTooltip: L.Tooltip | undefined = undefined
+let regionTooltip: L.Tooltip | undefined = undefined
 
 export function createRegionIndicatorLayer(map: L.Map): L.LayerGroup {
     let layer = L.layerGroup()
@@ -16,14 +16,14 @@ export function createRegionIndicatorLayer(map: L.Map): L.LayerGroup {
         let regionX = Math.trunc(e.latlng.lat / REGION_SIZE)
         let regionY = Math.trunc(e.latlng.lng / REGION_SIZE)
         let latLng = L.latLng(regionX * REGION_SIZE + REGION_SIZE / 2 + 0.5, regionY * REGION_SIZE + REGION_SIZE / 2 + 0.5)
-        if (regionInfoTooltip === undefined) {
-            regionInfoTooltip = L.tooltip({permanent: true, direction: 'center'})
-            regionInfoTooltip.setLatLng(latLng)
-            regionInfoTooltip.addTo(layer)
+        if (regionTooltip === undefined) {
+            regionTooltip = L.tooltip({permanent: true, direction: 'center'})
+            regionTooltip.setLatLng(latLng)
+            regionTooltip.addTo(layer)
         }
 
-        regionInfoTooltip.setLatLng(latLng)
-        regionInfoTooltip.setContent('(' + regionX + ', ' + regionY + ')')
+        regionTooltip.setLatLng(latLng)
+        regionTooltip.setContent('(' + regionX + ', ' + regionY + ')')
     })
 
     const opts: PolylineOptions = {color: 'black', weight: 1, interactive: false}

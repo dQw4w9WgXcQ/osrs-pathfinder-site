@@ -1,22 +1,36 @@
-// import './style.css'
 import 'leaflet/dist/leaflet.css'
 import * as L from 'leaflet'
-import {createComponentsImageLayer} from "./components";
-import {createRegionIndicatorLayer} from './region-indicator';
-import {createLayerControl} from './layer-control';
+import {createMapLayer} from "./map-layer";
+import {createComponentsLayer} from "./components-layer";
+import {createBlockedLayer} from "./blocked-layer";
+import {createRegionIndicatorLayer} from './region-indicator-layer';
 import {registerHoveredTile} from "./hovered-tile";
-import {initCursor} from "./cursor";
+import {changePlane} from "./plane-control";
 
 const map = L.map('map', {crs: L.CRS.Simple}).setView([3231.5, 3231.5], 2)
 
-const componentsImageLayer = createComponentsImageLayer();
+const mapLayer = createMapLayer()
+const componentsLayer = createComponentsLayer();
+
+const blockedLayer = createBlockedLayer();
 
 const regionIndicatorLayer = createRegionIndicatorLayer(map);
-map.addLayer(regionIndicatorLayer)
 
-const layerControl = createLayerControl(componentsImageLayer, regionIndicatorLayer)
+const layerControl = L.control.layers(
+    undefined,
+    {
+        "Contiguous Components": componentsLayer,
+        "Blocked Tiles": blockedLayer,
+        "Region Indicator": regionIndicatorLayer
+    },
+    {collapsed: false}
+)
+
+changePlane(0)
+
+map.addLayer(mapLayer)
 map.addControl(layerControl)
 
 registerHoveredTile(map)
 
-initCursor()
+document.getElementById("map")!.style.setProperty('cursor', 'url(/cursor-dragon-scimitar.png), auto')
