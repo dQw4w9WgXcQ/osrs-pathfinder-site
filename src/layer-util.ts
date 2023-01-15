@@ -10,5 +10,8 @@ export function tileUrlHack(tileLayer: L.TileLayer) {
 }
 
 export function tileUrlTemplate(plane: number, name: string): string {
+    if(name === 'map'){//todo temp
+        return 'https://raw.githubusercontent.com/dQw4w9WgXcQ/cdn/main/leaflet/' + name + '/{z}/' + plane + '_{x}_{y}.png'
+    }
     return 'https://raw.githubusercontent.com/dQw4w9WgXcQ/cdn/main/leaflet/' + name + '/{z}/' + plane + '-{x}-{y}.png'
 }

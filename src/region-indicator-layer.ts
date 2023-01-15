@@ -15,15 +15,17 @@ export function createRegionIndicatorLayer(map: L.Map): L.LayerGroup {
     map.on('mousemove', (e) => {
         let regionX = Math.trunc(e.latlng.lat / REGION_SIZE)
         let regionY = Math.trunc(e.latlng.lng / REGION_SIZE)
-        let latLng = L.latLng(regionX * REGION_SIZE + REGION_SIZE / 2 + 0.5, regionY * REGION_SIZE + REGION_SIZE / 2 + 0.5)
+        let xRegion = Math.trunc(e.latlng.lat) % REGION_SIZE
+        let yRegion = Math.trunc(e.latlng.lng) % REGION_SIZE
+        let tooltipLatLng = L.latLng(regionX * REGION_SIZE + REGION_SIZE / 2 + 0.5, regionY * REGION_SIZE + REGION_SIZE / 2 + 0.5)
         if (regionTooltip === undefined) {
             regionTooltip = L.tooltip({permanent: true, direction: 'center'})
-            regionTooltip.setLatLng(latLng)
+            regionTooltip.setLatLng(tooltipLatLng)
             regionTooltip.addTo(layer)
         }
 
-        regionTooltip.setLatLng(latLng)
-        regionTooltip.setContent('(' + regionX + ', ' + regionY + ')')
+        regionTooltip.setLatLng(tooltipLatLng)
+        regionTooltip.setContent('(' + regionX + ', ' + regionY + ') (' + xRegion + ', ' + yRegion + ')')
     })
 
     const opts: PolylineOptions = {color: 'black', weight: 1, interactive: false}

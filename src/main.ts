@@ -5,7 +5,8 @@ import {createComponentsLayer} from "./components-layer";
 import {createBlockedLayer} from "./blocked-layer";
 import {createRegionIndicatorLayer} from './region-indicator-layer';
 import {registerHoveredTile} from "./hovered-tile";
-import {addPlaneControl} from "./plane-control";
+import {addPlaneControl} from "./plane";
+import {addStartFinishMarkers} from "./start-finish-markers";
 
 const map = L.map('map', {crs: L.CRS.Simple}).setView([3231.5, 3231.5], 2)
 
@@ -31,5 +32,6 @@ map.addControl(layerControl)
 addPlaneControl(map)
 
 registerHoveredTile(map)
+addStartFinishMarkers(map)
 
-//document.getElementById("map")!.style.setProperty('cursor', 'url(/cursor-dragon-scimitar.png), auto')
+document.getElementById("map")!.style.setProperty('cursor', 'url(/cursor-dragon-scimitar.png), auto')

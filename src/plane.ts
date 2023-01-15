@@ -48,13 +48,13 @@ const PlaneControl = L.Control.extend({
 
 
         let upButtonEle = L.DomUtil.create('a', `${containerName}-up`, container)
-        upButtonEle.innerHTML = '▲'
+        upButtonEle.innerHTML = '<div style="cursor:pointer;user-select: none;">▲</div>'
         upButtonEle.title = "Plane Up"
         upButtonEle.onclick = () => planeUp()
         L.DomEvent.disableClickPropagation(upButtonEle)
 
         let downButtonEle = L.DomUtil.create('a', `${containerName}-down`, container)
-        downButtonEle.innerHTML = '▼'
+        downButtonEle.innerHTML = '<div style="cursor:pointer;user-select: none;">▼</div>'
         downButtonEle.title = "Plane Down"
         downButtonEle.onclick = () => planeDown()
         L.DomEvent.disableClickPropagation(downButtonEle)

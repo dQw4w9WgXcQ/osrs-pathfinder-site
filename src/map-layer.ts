@@ -1,6 +1,6 @@
 import * as L from "leaflet";
 import {tileUrlHack, tileUrlTemplate} from "./layer-util";
-import * as PlaneControl from "./plane-control";
+import * as Plane from "./plane";
 
 export function createMapLayer(): L.TileLayer {
     let layer = L.tileLayer(
@@ -10,13 +10,12 @@ export function createMapLayer(): L.TileLayer {
             minNativeZoom: -3,
             maxZoom: 5,
             minZoom: -3,
-            opacity: 0.5,
         }
     )
 
     tileUrlHack(layer)
 
-    PlaneControl.addTileLayer('map', layer)
+    Plane.addTileLayer('map', layer)
 
     return layer
 }
