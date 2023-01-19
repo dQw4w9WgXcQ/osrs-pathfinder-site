@@ -39,7 +39,6 @@ export function addStartFinishMarkers(map: L.Map) {
     finishMarker.bindPopup('Finish (drag me)')
         .bindTooltip(finishMarkerTooltip)
         .addTo(map)
-        .openPopup()
     setTooltipCoordinates(finishMarkerTooltip, finishMarker.getLatLng())
     let finishTile = L.rectangle(getTileBounds(finishMarker.getLatLng()), {color: 'red', weight: 2, interactive: false})
     finishTile.addTo(map)
@@ -50,6 +49,8 @@ export function addStartFinishMarkers(map: L.Map) {
     finishMarker.on('dragend', () => {
         finishPlane = currentPlane
     })
+
+    finishMarker.openPopup()
 }
 
 function setTooltipCoordinates(tooltip: L.Tooltip, latlng: L.LatLng) {
