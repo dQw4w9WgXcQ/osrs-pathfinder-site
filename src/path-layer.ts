@@ -1,23 +1,17 @@
 import * as L from 'leaflet'
 
-const pathLayer = L.layerGroup()
+const layer = L.layerGroup()
 
 export function addPathLayer(map: L.Map) {
-    pathLayer.addTo(map)
+    map.addLayer(layer)
 }
 
-export function setPath(path: [number, number][]) {
-    pathLayer.clearLayers()
+export function setPath(path: any[]) {
+    layer.clearLayers()
+}
 
-    let prev: L.LatLng | undefined = undefined
-    path.forEach(([x, y], i) => {
-        let latlng = L.latLng(y + 0.5, x + 0.5);
-
-        if (prev) {
-            let line = L.polyline([prev, latlng], {color: 'blue'})
-            line.addTo(pathLayer)
-        }
-
-        prev = latlng
-    })
+function addLines(lines: [number, number, number, number][], color: string) {
+    for (const [x1, y1, x2, y2] of lines) {
+        L.polyline([[x1, y1], [x2, y2]], {color}).addTo(layer)
+    }
 }
