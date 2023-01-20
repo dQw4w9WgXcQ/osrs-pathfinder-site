@@ -22,7 +22,7 @@ export function addTileLayers(map: L.Map) {
             minNativeZoom: 0,
             maxZoom: 5,
             minZoom: -1,
-            opacity: 0.75,
+            opacity: 0.5,
         }
     )
 
