@@ -14,17 +14,15 @@ const map = L.map('map', {crs: L.CRS.Simple}).setView([3231.5, 3231.5], 2)
 
 const mapLayer = createMapLayer()
 const componentsLayer = createComponentsLayer();
-
 const blockedLayer = createBlockedLayer();
-
 const regionIndicatorLayer = createRegionIndicatorLayer(map);
-
 const layerControl = L.control.layers(
     undefined,
     {
+        "Map": mapLayer,
         "Contiguous Components": componentsLayer,
         "Blocked Tiles": blockedLayer,
-        "Region Indicator": regionIndicatorLayer
+        "Region Indicator": regionIndicatorLayer,
     },
     {collapsed: false}
 )

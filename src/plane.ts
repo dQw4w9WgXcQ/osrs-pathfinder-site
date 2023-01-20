@@ -47,13 +47,13 @@ const PlaneControl = L.Control.extend({
         let container = L.DomUtil.create("div", `${containerName} leaflet-bar`);
 
         let upButton = L.DomUtil.create('a', `${containerName}-up`, container)
-        upButton.innerHTML = '<div style="cursor:pointer;user-select: none;">▲</div>'
+        upButton.innerHTML = '<div style="cursor:pointer;user-select: none;">▲Z</div>'
         upButton.title = "Plane Up"
         upButton.onclick = () => planeUp()
         L.DomEvent.disableClickPropagation(upButton)
 
         let downButton = L.DomUtil.create('a', `${containerName}-down`, container)
-        downButton.innerHTML = '<div style="cursor:pointer;user-select: none;">▼</div>'
+        downButton.innerHTML = '<div style="cursor:pointer;user-select: none;">▼Z</div>'
         downButton.title = "Plane Down"
         downButton.onclick = () => planeDown()
         L.DomEvent.disableClickPropagation(downButton)
