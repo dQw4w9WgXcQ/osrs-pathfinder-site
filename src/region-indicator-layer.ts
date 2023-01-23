@@ -1,5 +1,6 @@
 import * as L from "leaflet";
 import {PolylineOptions} from "leaflet";
+import {toLatLng} from "./util";
 
 const REGION_X_MAX = 66
 const REGION_Y_MAX = 196
@@ -13,11 +14,11 @@ export function createRegionIndicatorLayer(map: L.Map): L.LayerGroup {
     let layer = L.layerGroup()
 
     map.on('mousemove', (e) => {
-        let regionX = Math.trunc(e.latlng.lat / REGION_SIZE)
-        let regionY = Math.trunc(e.latlng.lng / REGION_SIZE)
-        let xRegion = Math.trunc(e.latlng.lat) % REGION_SIZE
-        let yRegion = Math.trunc(e.latlng.lng) % REGION_SIZE
-        let tooltipLatLng = L.latLng(regionX * REGION_SIZE + REGION_SIZE / 2 + 0.5, regionY * REGION_SIZE + REGION_SIZE / 2 + 0.5)
+        let regionX = Math.trunc(e.latlng.lng / REGION_SIZE)
+        let xRegion = Math.trunc(e.latlng.lng) % REGION_SIZE
+        let regionY = Math.trunc(e.latlng.lat / REGION_SIZE)
+        let yRegion = Math.trunc(e.latlng.lat) % REGION_SIZE
+        let tooltipLatLng = toLatLng(regionX * REGION_SIZE + REGION_SIZE / 2 + 0.5,regionY * REGION_SIZE + REGION_SIZE / 2 + 0.5)
         if (regionTooltip === undefined) {
             regionTooltip = L.tooltip({permanent: true, direction: 'center'})
             regionTooltip.setLatLng(tooltipLatLng)

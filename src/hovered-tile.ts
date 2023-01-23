@@ -1,9 +1,8 @@
 import * as L from "leaflet";
-import {LatLng} from "leaflet";
 import {toBounds} from "./util";
 
 let hoveredTile: L.Rectangle = L.rectangle(
-    toBounds(new LatLng(0, 0)),
+    toBounds(L.latLng(0, 0)),
     {color: 'yellow', weight: 2, interactive: false}
 )
 

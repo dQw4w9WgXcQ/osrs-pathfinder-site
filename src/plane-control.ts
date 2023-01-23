@@ -15,9 +15,9 @@ export function changePlane(map: L.Map, plane: number) {
 
     if (plane === currentPlane) return
 
-    map.fire('planechange', {plane: plane})
-
     currentPlane = plane
+
+    map.fire('planechange', {plane: plane})
 }
 
 export function addPlaneControl(map: L.Map) {

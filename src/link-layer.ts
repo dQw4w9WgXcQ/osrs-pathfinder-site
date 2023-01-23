@@ -1,28 +1,7 @@
 import * as L from 'leaflet';
 import {PLANE_COUNT} from "./plane-control";
-
-export type Point = {
-    x: number
-    y: number
-}
-
-export type Position = Point & {
-    plane: number
-}
-
-export type Link = {
-    id: number
-    origin: Position
-    destination: Position
-}
-
-export type Links = {
-    doorLinks: Link[]
-    stairLinks: Link[]
-    dungeonLinks: Link[]
-}
-
-export type LinkType = 'door' | 'stair' | 'dungeon'
+import {capitalize, pointToLatLng} from "./util";
+import {Link, Links, LinkType, Position} from "./dto";
 
 const stairIcon = L.icon({iconUrl: '/stair.png', iconSize: [32, 32]})
 const doorIcon = L.icon({iconUrl: '/door.png', iconSize: [16, 32]})
@@ -58,9 +37,9 @@ export function addLinkLayer(map: L.Map) {
                 throw new Error('Failed to fetch links')
             }
 
-            addLinks(links.doorLinks, 'door', doorMarkers, doorIcon, doorPlaneLayers)
-            addLinks(links.stairLinks, 'stair', stairMarkers, stairIcon, stairPlaneLayers)
-            addLinks(links.dungeonLinks, 'dungeon', dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
+            addLinks(links.doorLinks, 'DOOR', doorMarkers, doorIcon, doorPlaneLayers)
+            addLinks(links.stairLinks, 'STAIR', stairMarkers, stairIcon, stairPlaneLayers)
+            addLinks(links.dungeonLinks, 'DUNGEON', dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
         })
         .catch(error => console.error(error))
 
@@ -68,7 +47,7 @@ export function addLinkLayer(map: L.Map) {
         undefined,
         {
             "Doors": doorLayer,
-            "Stairs": stairLayer,
+            "Stairs & Ladders": stairLayer,
             "Dungeons": dungeonLayer,
         },
         {collapsed: false}
@@ -79,34 +58,31 @@ export function addLinkLayer(map: L.Map) {
 
 export function getMarker(type: LinkType, id: number) {
     switch (type) {
-        case 'door':
+        case 'DOOR':
             return doorMarkers[id]
-        case 'stair':
+        case 'STAIR':
             return stairMarkers[id]
-        case 'dungeon':
+        case 'DUNGEON':
             return dungeonMarkers[id]
     }
 }
 
 function addLinks(links: Link[], type: LinkType, markers: L.Marker[], icon: L.Icon, planeLayers: L.LayerGroup[]) {
     links.forEach(link => {
-        const marker = L.marker(toLatLng(link.origin), {icon: icon})
-        marker.bindPopup(popupString(type, link, type !== 'door'))
+        const marker = L.marker(pointToLatLng(link.origin), {icon: icon})
+        marker.bindTooltip(linkDescription(type, link, type !== 'DOOR'))
         markers.push(marker)
         marker.addTo(planeLayers[link.origin.plane])
     })
 }
 
-function toCoordString(position: Position, includePlane: boolean): string {
+function toCoordString(position: Position, includePlane: boolean) {
     return `(${position.x}, ${position.y}${includePlane ? `, ${position.plane}` : ''})`
 }
 
-function popupString(type: LinkType, link: Link, includePlane: boolean) {
-    return `${type}#${link.id} from ${toCoordString(link.origin, includePlane)} to ${toCoordString(link.destination, includePlane)}`
-}
-
-function toLatLng(point: Point) {
-    return L.latLng(point.y + 0.5, point.x + 0.5)
+function linkDescription(type: LinkType, link: Link, includePlane: boolean) {
+    let objectId = (link as any).objectId ? (link as any).objectId : '';
+    return `${capitalize(type)}#${link.id}<br>Object ID: ${objectId}<br>From: ${toCoordString(link.origin, includePlane)}<br>To: ${toCoordString(link.destination, includePlane)}`
 }
 
 async function fetchLinks() {
