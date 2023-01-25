@@ -2,9 +2,11 @@ import {PathRequest, PathResponse} from "./dto";
 import {setPath} from "./path-layer";
 import {setTileIndicators} from "./start-finish-markers";
 
-const URL = 'http://localhost:8080/'
+const URL = 'https://pathfinder.dqw4w9wgxcq.dev:8080'
 
-export async function requestPath(req: PathRequest) {
+// const URL = 'http://localhost:8080'
+
+export function requestPath(req: PathRequest) {
     fetch(
         URL,
         {
@@ -15,8 +17,16 @@ export async function requestPath(req: PathRequest) {
             body: JSON.stringify(req)
         })
         .catch(error => {
-            console.log(error)
+            if (error.name === 'AbortError') {
+                //todo handle timeout
+            }
             throw error
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response.statusText)
+            }
+            return response as Response
         })
         .then(response => response.json())
         .then(data => data as PathResponse)

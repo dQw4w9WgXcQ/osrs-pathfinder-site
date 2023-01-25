@@ -3,7 +3,9 @@ export type Point = {
     y: number
 }
 
-export type Position = Point & { plane: number }
+export type Position = Point & {
+    plane: number
+}
 
 export type Link = {
     id: number
@@ -42,14 +44,20 @@ export type PathStep = {
     type: StepType
 }
 
+export type LinkStep = PathStep & {
+    type: LinkType
+    link: Link
+}
+
 export type WalkStep = PathStep & {
     plane: number
     path: Point[]
 }
 
-export type LinkStep = PathStep & {
-    type: LinkType
-    link: Link
+export type TeleportStep = PathStep & {
+    name: string
+    origin: Position
+    destination: Position
 }
 
 export type Agent = {
@@ -65,7 +73,7 @@ export type PathRequest = {
 }
 
 export type PathResponse = {
-    start:Position
-    finish:Position
+    start: Position
+    finish: Position
     steps: PathStep[] | null
 }

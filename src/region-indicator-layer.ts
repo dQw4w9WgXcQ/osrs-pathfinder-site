@@ -10,7 +10,7 @@ const X_MAX = (REGION_Y_MAX + 1) * REGION_SIZE
 
 let regionTooltip: L.Tooltip | undefined = undefined
 
-export function createRegionIndicatorLayer(map: L.Map): L.LayerGroup {
+export function createRegionIndicatorLayer(map: L.Map) {
     let layer = L.layerGroup()
 
     map.on('mousemove', (e) => {

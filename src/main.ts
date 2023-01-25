@@ -21,4 +21,5 @@ addStartFinishMarkers(map)
 addLinkLayer(map)
 addPathLayer(map)
 addPlaneControl(map)
+
 requestPath({start: INITIAL_START_POSITION, finish: INITIAL_FINISH_POSITION})
