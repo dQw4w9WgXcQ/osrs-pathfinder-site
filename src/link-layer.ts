@@ -6,6 +6,10 @@ import {Link, Links, LinkType, Position, SpecialLink} from "./dto";
 const stairIcon = L.icon({iconUrl: '/stair.png', iconSize: [32, 32]})
 const doorIcon = L.icon({iconUrl: '/door.png', iconSize: [16, 32]})
 const dungeonIcon = L.icon({iconUrl: '/dungeon.png', iconSize: [32, 32]})
+const shipIcon = L.icon({
+    iconUrl: 'https://oldschool.runescape.wiki/images/thumb/Toy_ship_detail.png/180px-Toy_ship_detail.png',
+    iconSize: [32, 32]
+})
 const wildernessDitchIcon = L.icon({
     iconUrl: 'https://oldschool.runescape.wiki/images/thumb/Wilderness_Sign_(skull).png/124px-Wilderness_Sign_(skull).png',
     iconSize: [32, 32]
@@ -18,6 +22,7 @@ const specialIcon = L.icon({
 const doorMarkers: L.Marker[] = []
 const stairMarkers: L.Marker[] = []
 const dungeonMarkers: L.Marker[] = []
+const shipMarkers: L.Marker[] = []
 const specialMarkers: L.Marker[] = []
 const wildernessDitchMarkers: L.Marker[] = []
 
@@ -25,12 +30,14 @@ export function addLinkLayer(map: L.Map) {
     const doorPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
     const stairPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
     const dungeonPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
+    const shipPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
     const wildernessDitchPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
     const specialPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
 
     const doorLayer = L.layerGroup([doorPlaneLayers[0]])
     const stairLayer = L.layerGroup([stairPlaneLayers[0]])
     const dungeonLayer = L.layerGroup([dungeonPlaneLayers[0]])
+    const shipLayer = L.layerGroup([shipPlaneLayers[0]])
     const wildernessDitchLayer = L.layerGroup([wildernessDitchPlaneLayers[0]])
     const specialLayer = L.layerGroup([specialPlaneLayers[0]])
 
@@ -38,6 +45,7 @@ export function addLinkLayer(map: L.Map) {
         doorLayer.clearLayers()
         stairLayer.clearLayers()
         dungeonLayer.clearLayers()
+        shipLayer.clearLayers()
         wildernessDitchLayer.clearLayers()
         specialLayer.clearLayers()
 
@@ -45,6 +53,7 @@ export function addLinkLayer(map: L.Map) {
         doorLayer.addLayer(doorPlaneLayers[plane])
         stairLayer.addLayer(stairPlaneLayers[plane])
         dungeonLayer.addLayer(dungeonPlaneLayers[plane])
+        shipLayer.addLayer(shipPlaneLayers[plane])
         wildernessDitchLayer.addLayer(wildernessDitchPlaneLayers[plane])
         specialLayer.addLayer(specialPlaneLayers[plane])
     })
@@ -58,6 +67,7 @@ export function addLinkLayer(map: L.Map) {
             addLinks(links.doorLinks, 'DOOR', doorMarkers, doorIcon, doorPlaneLayers)
             addLinks(links.stairLinks, 'STAIR', stairMarkers, stairIcon, stairPlaneLayers)
             addLinks(links.dungeonLinks, 'DUNGEON', dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
+            addLinks(links.shipLinks, 'SHIP', shipMarkers, shipIcon, shipPlaneLayers)
             addLinks(links.wildernessDitchLinks, 'WILDERNESS_DITCH', wildernessDitchMarkers, wildernessDitchIcon, wildernessDitchPlaneLayers)
             addLinks(links.specialLinks, 'SPECIAL', specialMarkers, specialIcon, specialPlaneLayers)
         })
@@ -69,6 +79,7 @@ export function addLinkLayer(map: L.Map) {
             "Doors": doorLayer,
             "Stairs & Ladders": stairLayer,
             "Dungeons": dungeonLayer,
+            "Ship": shipLayer,
             "Wilderness Ditch": wildernessDitchLayer,
             "Special": specialLayer
         },
@@ -86,6 +97,8 @@ export function getMarker(type: LinkType, id: number) {
             return stairMarkers[id]
         case 'DUNGEON':
             return dungeonMarkers[id]
+        case "SHIP":
+            return shipMarkers[id]
         case 'WILDERNESS_DITCH':
             return wildernessDitchMarkers[id]
         case 'SPECIAL':
