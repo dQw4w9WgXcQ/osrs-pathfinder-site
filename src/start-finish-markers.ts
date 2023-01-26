@@ -5,7 +5,7 @@ import {Point, Position} from "./dto";
 import {requestPath} from "./request-path";
 
 export const INITIAL_START_POSITION = {x: 3222, y: 3218, plane: 0}//lumbridge
-export const INITIAL_FINISH_POSITION = {x: 2441, y: 3088, plane: 0}//castle wars
+export const INITIAL_FINISH_POSITION = {x: 2515, y: 3160, plane: 0}//tree gnome village
 
 export function addStartFinishMarkers(map: L.Map) {
     startMarker.on('dragend', () => {

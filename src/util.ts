@@ -7,8 +7,8 @@ export function toBounds(latlng: L.LatLng): L.LatLngBounds {
     return L.latLngBounds([lat, lng], [lat + 1, lng + 1])
 }
 
-export function capitalize(s: string) {
-    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
+export function prettyString(s: string) {
+    return (s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).replace('_', ' ')
 }
 
 export function toLatLng(x: number, y: number) {

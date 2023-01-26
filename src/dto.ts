@@ -26,12 +26,18 @@ export type DungeonLink = Link & {
     action: string
 }
 
-export type LinkType = 'DOOR' | 'STAIR' | 'DUNGEON'
+export type SpecialLink = Link & {
+    extra: any
+}
+
+export type LinkType = 'DOOR' | 'STAIR' | 'DUNGEON' | 'WILDERNESS_DITCH' | 'SPECIAL'
 
 export type Links = {
     doorLinks: DoorLink[]
     stairLinks: StairLink[]
     dungeonLinks: DungeonLink[]
+    wildernessDitchLinks: Link[]
+    specialLinks: SpecialLink[]
 }
 
 export type Path = {
