@@ -6,18 +6,9 @@ import {Link, Links, LinkType, Position, SpecialLink} from "./dto";
 const stairIcon = L.icon({iconUrl: '/stair.png', iconSize: [32, 32]})
 const doorIcon = L.icon({iconUrl: '/door.png', iconSize: [16, 32]})
 const dungeonIcon = L.icon({iconUrl: '/dungeon.png', iconSize: [32, 32]})
-const shipIcon = L.icon({
-    iconUrl: 'https://oldschool.runescape.wiki/images/thumb/Toy_ship_detail.png/180px-Toy_ship_detail.png',
-    iconSize: [32, 32]
-})
-const wildernessDitchIcon = L.icon({
-    iconUrl: 'https://oldschool.runescape.wiki/images/thumb/Wilderness_Sign_(skull).png/124px-Wilderness_Sign_(skull).png',
-    iconSize: [32, 32]
-})
-const specialIcon = L.icon({
-    iconUrl: 'https://oldschool.runescape.wiki/images/thumb/Star-face_detail.png/246px-Star-face_detail.png',
-    iconSize: [32, 32]
-})
+const shipIcon = L.icon({iconUrl: '/ship.png', iconSize: [32, 32]})
+const wildernessDitchIcon = L.icon({iconUrl: '/ditch.png', iconSize: [32, 32]})
+const specialIcon = L.icon({iconUrl: '/special.png', iconSize: [32, 32]})
 
 const doorMarkers: L.Marker[] = []
 const stairMarkers: L.Marker[] = []
