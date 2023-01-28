@@ -2,12 +2,15 @@ import {PathRequest, PathResponse} from "./dto";
 import {setPath} from "./path-layer";
 import {setTileIndicators} from "./start-finish-markers";
 
+// const URL = 'http://localhost:8080'
 const URL = 'https://pathfinder.dqw4w9wgxcq.dev:8080'
 
-// const URL = 'http://localhost:8080'
+export async function doPath(req: PathRequest) {
+    return processPathResponse(requestPath(req))
+}
 
-export function requestPath(req: PathRequest) {
-    fetch(
+export async function requestPath(req: PathRequest) {
+    return fetch(
         URL,
         {
             method: 'POST',
@@ -24,15 +27,19 @@ export function requestPath(req: PathRequest) {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error(response.statusText)
+                throw new Error(response.status + ':' + response.statusText)
             }
             return response as Response
         })
         .then(response => response.json())
         .then(data => data as PathResponse)
+}
+
+export async function processPathResponse(pendingPathResposne: Promise<PathResponse>) {
+    return pendingPathResposne
         .then(res => {
-            setPath(res.steps!)
+            setPath(res.steps)
             setTileIndicators(res.start, res.finish)
         })
-        .catch(error => console.log(error))
+        .catch(e => console.log(e))
 }

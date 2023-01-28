@@ -2,7 +2,7 @@ import * as L from "leaflet"
 import {currentPlane} from "./plane-control"
 import {latLngToPoint, pointToLatLng, toBounds} from "./util";
 import {Point, Position} from "./dto";
-import {requestPath} from "./request-path";
+import {doPath} from "./request-path";
 
 export const INITIAL_START_POSITION = {x: 3493, y: 3489, plane: 0}//canfis
 export const INITIAL_FINISH_POSITION = {x: 2515, y: 3160, plane: 0}//tree gnome village
@@ -11,14 +11,14 @@ export function addStartFinishMarkers(map: L.Map) {
     startMarker.on('dragend', () => {
         if (JSON.stringify(startPositionDrag) != JSON.stringify(startPosition)) {
             startPositionDrag = startPosition
-            requestPath({start: startPosition, finish: finishPosition})
+            doPath({start: startPosition, finish: finishPosition})
         }
     })
 
     finishMarker.on('dragend', () => {
         if (JSON.stringify(finishPositionDrag) != JSON.stringify(finishPosition)) {
             finishPositionDrag = finishPosition
-            requestPath({start: startPosition, finish: finishPosition})
+            doPath({start: startPosition, finish: finishPosition})
         }
     })
 
