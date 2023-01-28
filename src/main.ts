@@ -25,12 +25,7 @@ addLinkLayer(map)
 addPathLayer(map)
 addPlaneControl(map)
 
-pendingLinks.then(links => {
-    if (!links) {
-        throw new Error('Failed to fetch links')
-    }
-
-    initLinks(links);
-
-    processPathResponse(pendingPathRequest)
-})
+pendingLinks
+    .then(links => initLinks(links))
+    .then(() => processPathResponse(pendingPathRequest))
+    .catch(e => console.error(e))//fetch links failed

@@ -5,8 +5,8 @@ import {setTileIndicators} from "./start-finish-markers";
 // const URL = 'http://localhost:8080'
 const URL = 'https://pathfinder.dqw4w9wgxcq.dev:8080'
 
-export async function doPath(req: PathRequest) {
-    return processPathResponse(requestPath(req))
+export function doPath(req: PathRequest) {
+    processPathResponse(requestPath(req))
 }
 
 export async function requestPath(req: PathRequest) {
@@ -26,20 +26,18 @@ export async function requestPath(req: PathRequest) {
             throw error
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(response.status + ':' + response.statusText)
-            }
+            if (!response.ok) throw new Error(response.status + ':' + response.statusText)
             return response as Response
         })
         .then(response => response.json())
         .then(data => data as PathResponse)
 }
 
-export async function processPathResponse(pendingPathResposne: Promise<PathResponse>) {
-    return pendingPathResposne
+export function processPathResponse(pendingPathResposne: Promise<PathResponse>) {
+    pendingPathResposne
         .then(res => {
             setPath(res.steps)
             setTileIndicators(res.start, res.finish)
         })
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))//todo toast user
 }

@@ -113,16 +113,17 @@ To: ${toCoordString(link.destination, includePlane)}`
 
 export async function fetchLinks() {
     return fetch('/links.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response.status + ' ' + response.statusText)
+            }
+            return response
+        })
         .then(response => response.json())
         .then(data => data as Links)
-        .catch(error => console.error(error))
 }
 
 export function initLinks(links: Links) {
-    if (links === undefined) {
-        throw new Error('Failed to fetch links')
-    }
-
     addLinks(links.doorLinks, 'DOOR', doorMarkers, doorIcon, doorPlaneLayers)
     addLinks(links.stairLinks, 'STAIR', stairMarkers, stairIcon, stairPlaneLayers)
     addLinks(links.dungeonLinks, 'DUNGEON', dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
