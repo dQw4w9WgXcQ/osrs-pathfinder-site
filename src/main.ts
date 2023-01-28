@@ -4,10 +4,12 @@ import {addHoveredTile} from "./hovered-tile";
 import {addPlaneControl} from "./plane-control";
 import {addStartFinishMarkers, INITIAL_FINISH_POSITION, INITIAL_START_POSITION} from "./start-finish-markers";
 import {addPathLayer} from "./path-layer";
-import {addLinkLayer} from "./link-layer";
+import {addLinkLayer, fetchLinks, initLinks} from "./link-layer";
 import {addTileLayers} from "./tile-layers";
 import {requestPath} from "./request-path";
 import {pointToLatLng} from "./util";
+
+const linksPromise = fetchLinks()
 
 const map = L.map('map', {crs: L.CRS.Simple})
 
@@ -22,4 +24,12 @@ addLinkLayer(map)
 addPathLayer(map)
 addPlaneControl(map)
 
-requestPath({start: INITIAL_START_POSITION, finish: INITIAL_FINISH_POSITION})
+linksPromise.then(links => {
+    if(!links){
+        throw new Error('Failed to fetch links')
+    }
+
+    initLinks(links)
+
+    requestPath({start: INITIAL_START_POSITION, finish: INITIAL_FINISH_POSITION})
+})

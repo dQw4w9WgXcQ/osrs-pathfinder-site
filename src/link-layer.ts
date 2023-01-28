@@ -6,8 +6,8 @@ import {Link, Links, LinkType, Position, SpecialLink} from "./dto";
 const stairIcon = L.icon({iconUrl: '/stair.png', iconSize: [32, 32]})
 const doorIcon = L.icon({iconUrl: '/door.png', iconSize: [16, 32]})
 const dungeonIcon = L.icon({iconUrl: '/dungeon.png', iconSize: [32, 32]})
-const shipIcon = L.icon({iconUrl: '/ship.png', iconSize: [32, 32]})
-const wildernessDitchIcon = L.icon({iconUrl: '/ditch.png', iconSize: [32, 32]})
+const shipIcon = L.icon({iconUrl: '/ship.png', iconSize: [24, 32]})
+const wildernessDitchIcon = L.icon({iconUrl: '/ditch.png', iconSize: [17, 32]})
 const specialIcon = L.icon({iconUrl: '/special.png', iconSize: [32, 32]})
 
 const doorMarkers: L.Marker[] = []
@@ -17,14 +17,14 @@ const shipMarkers: L.Marker[] = []
 const specialMarkers: L.Marker[] = []
 const wildernessDitchMarkers: L.Marker[] = []
 
-export function addLinkLayer(map: L.Map) {
-    const doorPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
-    const stairPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
-    const dungeonPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
-    const shipPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
-    const wildernessDitchPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
-    const specialPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
+const doorPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
+const stairPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
+const dungeonPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
+const shipPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
+const wildernessDitchPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
+const specialPlaneLayers: L.LayerGroup[] = Array(PLANE_COUNT).fill(null).map(() => L.layerGroup())
 
+export function addLinkLayer(map: L.Map) {
     const doorLayer = L.layerGroup([doorPlaneLayers[0]])
     const stairLayer = L.layerGroup([stairPlaneLayers[0]])
     const dungeonLayer = L.layerGroup([dungeonPlaneLayers[0]])
@@ -48,21 +48,6 @@ export function addLinkLayer(map: L.Map) {
         wildernessDitchLayer.addLayer(wildernessDitchPlaneLayers[plane])
         specialLayer.addLayer(specialPlaneLayers[plane])
     })
-
-    fetchLinks()
-        .then(links => {
-            if (links === undefined) {
-                throw new Error('Failed to fetch links')
-            }
-
-            addLinks(links.doorLinks, 'DOOR', doorMarkers, doorIcon, doorPlaneLayers)
-            addLinks(links.stairLinks, 'STAIR', stairMarkers, stairIcon, stairPlaneLayers)
-            addLinks(links.dungeonLinks, 'DUNGEON', dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
-            addLinks(links.shipLinks, 'SHIP', shipMarkers, shipIcon, shipPlaneLayers)
-            addLinks(links.wildernessDitchLinks, 'WILDERNESS_DITCH', wildernessDitchMarkers, wildernessDitchIcon, wildernessDitchPlaneLayers)
-            addLinks(links.specialLinks, 'SPECIAL', specialMarkers, specialIcon, specialPlaneLayers)
-        })
-        .catch(error => console.error(error))
 
     const control = L.control.layers(
         undefined,
@@ -126,9 +111,22 @@ From: ${toCoordString(link.origin, includePlane)}<br>
 To: ${toCoordString(link.destination, includePlane)}`
 }
 
-async function fetchLinks() {
+export async function fetchLinks() {
     return fetch('/links.json')
         .then(response => response.json())
         .then(data => data as Links)
         .catch(error => console.error(error))
+}
+
+export function initLinks(links: Links) {
+    if (links === undefined) {
+        throw new Error('Failed to fetch links')
+    }
+
+    addLinks(links.doorLinks, 'DOOR', doorMarkers, doorIcon, doorPlaneLayers)
+    addLinks(links.stairLinks, 'STAIR', stairMarkers, stairIcon, stairPlaneLayers)
+    addLinks(links.dungeonLinks, 'DUNGEON', dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
+    addLinks(links.shipLinks, 'SHIP', shipMarkers, shipIcon, shipPlaneLayers)
+    addLinks(links.wildernessDitchLinks, 'WILDERNESS_DITCH', wildernessDitchMarkers, wildernessDitchIcon, wildernessDitchPlaneLayers)
+    addLinks(links.specialLinks, 'SPECIAL', specialMarkers, specialIcon, specialPlaneLayers)
 }
