@@ -4,7 +4,7 @@ import {latLngToPoint, pointToLatLng, toBounds} from "./util";
 import {Point, Position} from "./dto";
 import {requestPath} from "./request-path";
 
-export const INITIAL_START_POSITION = {x: 3222, y: 3218, plane: 0}//lumbridge
+export const INITIAL_START_POSITION = {x: 3493, y: 3489, plane: 0}//canfis
 export const INITIAL_FINISH_POSITION = {x: 2515, y: 3160, plane: 0}//tree gnome village
 
 export function addStartFinishMarkers(map: L.Map) {
