@@ -4,8 +4,8 @@ import {latLngToPoint, pointToLatLng, toBounds} from "./util";
 import {Point, Position} from "./dto";
 import {doPath} from "./request-path";
 
-export const INITIAL_START_POSITION = {x: 3493, y: 3489, plane: 0}//canfis
-export const INITIAL_FINISH_POSITION = {x: 2515, y: 3160, plane: 0}//tree gnome village
+export const INITIAL_START_POSITION = {x: 2905, y: 3191, plane: 0}
+export const INITIAL_FINISH_POSITION = {x: 3493, y: 3489, plane: 0}
 
 export function addStartFinishMarkers(map: L.Map) {
     startMarker.on('dragend', () => {
