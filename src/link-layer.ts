@@ -1,7 +1,7 @@
 import * as L from 'leaflet';
 import {PLANE_COUNT} from "./plane-control";
 import {pointToLatLng, prettyString} from "./util";
-import {Link, Links, LinkType, Position, SpecialLink} from "./dto";
+import {Link, Links, LinkType, Position} from "./dto";
 
 const stairIcon = L.icon({iconUrl: '/stair.png', iconSize: [32, 32]})
 const doorIcon = L.icon({iconUrl: '/door.png', iconSize: [16, 32]})
@@ -96,18 +96,20 @@ function toCoordString(position: Position, includePlane: boolean) {
 }
 
 function linkDescription(type: LinkType, link: Link, includePlane: boolean) {
-    let objectId: string | undefined
-    if ((link as any).objectId) {
-        objectId = (link as any).objectId
-    } else if ((link as any).extra?.objectId) {
-        objectId = (link as SpecialLink).extra.objectId
-    }
-
-    let objectIdMessage = objectId ? `Object ID: ${objectId}<br>` : ''
-
+//     let objectId: string | undefined
+//     if ((link as any).objectId) {
+//         objectId = (link as any).objectId
+//     } else if ((link as any).extra?.objectId) {
+//         objectId = (link as SpecialLink).extra.objectId
+//     }
+//
+//     let objectIdMessage = objectId ? `Object ID: ${objectId}<br>` : ''
+//
+//     return `${prettyString(type)}#${link.id}<br>
+// ${objectIdMessage}
+// From: ${toCoordString(link.origin, includePlane)}<br>
+// To: ${toCoordString(link.destination, includePlane)}`
     return `${prettyString(type)}#${link.id}<br>
-${objectIdMessage}
-From: ${toCoordString(link.origin, includePlane)}<br>
 To: ${toCoordString(link.destination, includePlane)}`
 }
 
