@@ -59,7 +59,7 @@ export function addLinkLayer(map: L.Map) {
             "Wilderness Ditch": wildernessDitchLayer,
             "Special": specialLayer
         },
-        {collapsed: false}
+        {collapsed: false, position: 'bottomright'}
     )
 
     map.addControl(control)

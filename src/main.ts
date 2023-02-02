@@ -14,10 +14,10 @@ const pendingPathRequest = requestPath({start: INITIAL_START_POSITION, finish: I
 
 const map = L.map('map', {crs: L.CRS.Simple})
 
-map.fitBounds(L.latLngBounds(pointToLatLng({
-    ...INITIAL_START_POSITION,
-    x: INITIAL_START_POSITION.x - 200
-}), pointToLatLng({...INITIAL_FINISH_POSITION, x: INITIAL_FINISH_POSITION.x + 200})))
+map.fitBounds(L.latLngBounds(
+    pointToLatLng({...INITIAL_START_POSITION, x: INITIAL_START_POSITION.x - 200}),
+    pointToLatLng({...INITIAL_FINISH_POSITION, x: INITIAL_FINISH_POSITION.x + 200})
+))
 
 document.getElementById('map')?.style.setProperty('cursor', 'url(/cursor-dragon-scimitar.png), auto')
 

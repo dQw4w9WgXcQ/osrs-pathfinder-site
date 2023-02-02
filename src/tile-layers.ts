@@ -46,7 +46,7 @@ export function addTileLayers(map: L.Map) {
             "Blocked Tiles": blockedLayer,
             "Region Indicator": createRegionIndicatorLayer(map),
         },
-        {collapsed: false}
+        {collapsed: false, position: 'bottomright'}
     )
 
     map.addControl(control)
