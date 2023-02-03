@@ -31,7 +31,7 @@ export type ShipLink = Link
 export type WildernessDitchLink = Link
 
 export type SpecialLink = Link & {
-  extra: any
+  extra: unknown
 }
 
 export type LinkType =

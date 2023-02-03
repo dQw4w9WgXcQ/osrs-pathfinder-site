@@ -11,14 +11,14 @@ const X_MAX = (REGION_Y_MAX + 1) * REGION_SIZE
 let regionTooltip: L.Tooltip | undefined = undefined
 
 export function createRegionIndicatorLayer(map: L.Map) {
-  let layer = L.layerGroup()
+  const layer = L.layerGroup()
 
   map.on('mousemove', (e) => {
-    let regionX = Math.trunc(e.latlng.lng / REGION_SIZE)
-    let xRegion = Math.trunc(e.latlng.lng) % REGION_SIZE
-    let regionY = Math.trunc(e.latlng.lat / REGION_SIZE)
-    let yRegion = Math.trunc(e.latlng.lat) % REGION_SIZE
-    let tooltipLatLng = toLatLng(
+    const regionX = Math.trunc(e.latlng.lng / REGION_SIZE)
+    const xRegion = Math.trunc(e.latlng.lng) % REGION_SIZE
+    const regionY = Math.trunc(e.latlng.lat / REGION_SIZE)
+    const yRegion = Math.trunc(e.latlng.lat) % REGION_SIZE
+    const tooltipLatLng = toLatLng(
       regionX * REGION_SIZE + REGION_SIZE / 2 + 0.5,
       regionY * REGION_SIZE + REGION_SIZE / 2 + 0.5
     )

@@ -47,7 +47,7 @@ function createTileLayer(
   name: string,
   options: L.TileLayerOptions
 ) {
-  let tileLayer = L.tileLayer(createUrl(0, name), options)
+  const tileLayer = L.tileLayer(createUrl(0, name), options)
 
   tileUrlHack(tileLayer)
 

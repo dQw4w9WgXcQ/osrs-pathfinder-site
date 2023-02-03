@@ -14,19 +14,19 @@ export function setPath(steps: PathStep[] | null) {
 
   if (steps === null) return
 
-  let walkPaths: Point[][] = []
-  let teleportPaths: Point[][] = []
-  let linkPaths: Point[][] = []
-  for (let step of steps) {
+  const walkPaths: Point[][] = []
+  const teleportPaths: Point[][] = []
+  const linkPaths: Point[][] = []
+  for (const step of steps) {
     if (step.type === 'WALK') {
-      let walkStep = step as WalkStep
+      const walkStep = step as WalkStep
       walkPaths.push(walkStep.path)
     } else if (step.type === 'TELEPORT') {
       // let teleportStep = step as TeleportStep
       // addTeleportMarker(teleportStep.id)
       // linkPaths.push([linkStep.link.origin, linkStep.link.destination])
     } else {
-      let linkStep = step as LinkStep
+      const linkStep = step as LinkStep
       addLinkMarker(linkStep.type, linkStep.link.id)
       linkPaths.push([linkStep.link.origin, linkStep.link.destination])
     }
@@ -37,7 +37,7 @@ export function setPath(steps: PathStep[] | null) {
 }
 
 function addMultiPolyLine(path: Point[][], color: string) {
-  let latLngs = path.map((points) => points.map(pointToLatLng))
+  const latLngs = path.map((points) => points.map(pointToLatLng))
   L.polyline(latLngs, { color }).addTo(layer)
 }
 
