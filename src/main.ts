@@ -2,11 +2,7 @@ import 'leaflet/dist/leaflet.css'
 import * as L from 'leaflet'
 import { addHoveredTile } from './hovered-tile'
 import { addPlaneControl } from './plane-control'
-import {
-  addStartFinishMarkers,
-  INITIAL_FINISH_POSITION,
-  INITIAL_START_POSITION,
-} from './start-finish-markers'
+import { addStartFinishMarkers, INITIAL_FINISH_POSITION, INITIAL_START_POSITION } from './start-finish-markers'
 import { addPathLayer } from './path-layer'
 import { addLinkLayer, fetchLinks, initLinks } from './link-layer'
 import { addTileLayers } from './tile-layers'
@@ -24,19 +20,17 @@ const map = L.map('map', { crs: L.CRS.Simple })
 map.fitBounds(
   L.latLngBounds(
     pointToLatLng({
-      ...INITIAL_START_POSITION,
-      x: INITIAL_START_POSITION.x - 200,
+      y: INITIAL_START_POSITION.y,
+      x: INITIAL_START_POSITION.x - 150,
     }),
     pointToLatLng({
-      ...INITIAL_FINISH_POSITION,
-      x: INITIAL_FINISH_POSITION.x + 200,
+      y: INITIAL_FINISH_POSITION.y,
+      x: INITIAL_FINISH_POSITION.x + 150,
     })
   )
 )
 
-document
-  .getElementById('map')
-  ?.style.setProperty('cursor', 'url(/cursor-dragon-scimitar.png), auto')
+document.getElementById('map')?.style.setProperty('cursor', 'url(/cursor-dragon-scimitar.png), auto')
 
 addTileLayers(map)
 addHoveredTile(map)

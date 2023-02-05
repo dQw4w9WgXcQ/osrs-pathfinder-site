@@ -42,11 +42,7 @@ export function addTileLayers(map: L.Map) {
   return control
 }
 
-function createTileLayer(
-  map: L.Map,
-  name: string,
-  options: L.TileLayerOptions
-) {
+function createTileLayer(map: L.Map, name: string, options: L.TileLayerOptions) {
   const tileLayer = L.tileLayer(createUrl(0, name), options)
 
   tileUrlHack(tileLayer)

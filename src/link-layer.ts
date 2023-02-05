@@ -97,27 +97,17 @@ export function getMarker(type: LinkType, id: number) {
   }
 }
 
-function addLinks(
-  links: Link[],
-  type: LinkType,
-  markers: L.Marker[],
-  icon: L.Icon,
-  planeLayers: L.LayerGroup[]
-) {
+function addLinks(links: Link[], type: LinkType, markers: L.Marker[], icon: L.Icon, planeLayers: L.LayerGroup[]) {
   links.forEach((link) => {
     const marker = L.marker(pointToLatLng(link.origin), { icon: icon })
-    marker.bindTooltip(
-      linkDescription(type, link, link.origin.plane !== link.destination.plane)
-    )
+    marker.bindTooltip(linkDescription(type, link, link.origin.plane !== link.destination.plane))
     markers.push(marker)
     marker.addTo(planeLayers[link.origin.plane])
   })
 }
 
 function toCoordString(position: Position, includePlane: boolean) {
-  return `(${position.x}, ${position.y}${
-    includePlane ? `, ${position.plane}` : ''
-  })`
+  return `(${position.x}, ${position.y}${includePlane ? `, ${position.plane}` : ''})`
 }
 
 function linkDescription(type: LinkType, link: Link, includePlane: boolean) {
@@ -153,13 +143,7 @@ export async function fetchLinks() {
 export function initLinks(links: Links) {
   addLinks(links.doorLinks, 'DOOR', doorMarkers, doorIcon, doorPlaneLayers)
   addLinks(links.stairLinks, 'STAIR', stairMarkers, stairIcon, stairPlaneLayers)
-  addLinks(
-    links.dungeonLinks,
-    'DUNGEON',
-    dungeonMarkers,
-    dungeonIcon,
-    dungeonPlaneLayers
-  )
+  addLinks(links.dungeonLinks, 'DUNGEON', dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
   addLinks(links.shipLinks, 'SHIP', shipMarkers, shipIcon, shipPlaneLayers)
   addLinks(
     links.wildernessDitchLinks,
@@ -168,11 +152,5 @@ export function initLinks(links: Links) {
     wildernessDitchIcon,
     wildernessDitchPlaneLayers
   )
-  addLinks(
-    links.specialLinks,
-    'SPECIAL',
-    specialMarkers,
-    specialIcon,
-    specialPlaneLayers
-  )
+  addLinks(links.specialLinks, 'SPECIAL', specialMarkers, specialIcon, specialPlaneLayers)
 }

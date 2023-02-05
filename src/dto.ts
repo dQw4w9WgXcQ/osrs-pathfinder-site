@@ -34,13 +34,7 @@ export type SpecialLink = Link & {
   extra: unknown
 }
 
-export type LinkType =
-  | 'DOOR'
-  | 'STAIR'
-  | 'DUNGEON'
-  | 'SHIP'
-  | 'WILDERNESS_DITCH'
-  | 'SPECIAL'
+export type LinkType = 'DOOR' | 'STAIR' | 'DUNGEON' | 'SHIP' | 'WILDERNESS_DITCH' | 'SPECIAL'
 
 export type Links = {
   doorLinks: DoorLink[]

@@ -24,17 +24,14 @@ export async function requestPath(req: PathRequest) {
       throw error
     })
     .then((response) => {
-      if (!response.ok)
-        throw new Error(response.status + ':' + response.statusText)
+      if (!response.ok) throw new Error(response.status + ':' + response.statusText)
       return response as Response
     })
     .then((response) => response.json())
     .then((data) => data as PathResponse)
 }
 
-export function processPathResponse(
-  pendingPathResposne: Promise<PathResponse>
-) {
+export function processPathResponse(pendingPathResposne: Promise<PathResponse>) {
   pendingPathResposne
     .then((res) => {
       setPath(res.steps)

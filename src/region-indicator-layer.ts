@@ -29,9 +29,7 @@ export function createRegionIndicatorLayer(map: L.Map) {
     }
 
     regionTooltip.setLatLng(tooltipLatLng)
-    regionTooltip.setContent(
-      '(' + regionX + ', ' + regionY + ') (' + xRegion + ', ' + yRegion + ')'
-    )
+    regionTooltip.setContent('(' + regionX + ', ' + regionY + ') (' + xRegion + ', ' + yRegion + ')')
   })
 
   const opts: PolylineOptions = {
