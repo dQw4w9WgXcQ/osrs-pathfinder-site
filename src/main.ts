@@ -41,5 +41,5 @@ addPlaneControl(map)
 
 pendingLinks
   .then((links) => initLinks(links))
-  .then(() => processPathResponse(pendingPathRequest))
+  .then(() => processPathResponse(pendingPathRequest, false))
   .catch((e) => console.error(e)) //fetch links failed

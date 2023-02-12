@@ -9,7 +9,7 @@ export function addPathLayer(map: L.Map) {
   map.addLayer(layer)
 }
 
-export function setPath(steps: PathStep[] | null) {
+export function setPath(steps: PathStep[] | null, openTooltip: boolean) {
   layer.clearLayers()
 
   if (steps === null) return
@@ -27,7 +27,7 @@ export function setPath(steps: PathStep[] | null) {
       // linkPaths.push([linkStep.link.origin, linkStep.link.destination])
     } else {
       const linkStep = step as LinkStep
-      addLinkMarker(linkStep.type, linkStep.link.id)
+      addLinkMarker(linkStep.type, linkStep.link.id, openTooltip)
       linkPaths.push([linkStep.link.origin, linkStep.link.destination])
     }
   }
@@ -41,6 +41,10 @@ function addMultiPolyLine(path: Point[][], color: string) {
   L.polyline(latLngs, { color }).addTo(layer)
 }
 
-function addLinkMarker(type: LinkType, id: number) {
-  getMarker(type, id).addTo(layer).openTooltip()
+function addLinkMarker(type: LinkType, id: number, openTooltip: boolean) {
+  const marker = getMarker(type, id)
+  marker.addTo(layer)
+  if (openTooltip) {
+    marker.openTooltip()
+  }
 }
