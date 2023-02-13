@@ -20,12 +20,12 @@ const map = L.map('map', { crs: L.CRS.Simple })
 map.fitBounds(
   L.latLngBounds(
     pointToLatLng({
-      y: INITIAL_START_POSITION.y,
-      x: INITIAL_START_POSITION.x - 150,
+      y: INITIAL_FINISH_POSITION.y,
+      x: INITIAL_FINISH_POSITION.x - 150,
     }),
     pointToLatLng({
-      y: INITIAL_FINISH_POSITION.y,
-      x: INITIAL_FINISH_POSITION.x + 150,
+      y: INITIAL_START_POSITION.y,
+      x: INITIAL_START_POSITION.x + 150,
     })
   )
 )
