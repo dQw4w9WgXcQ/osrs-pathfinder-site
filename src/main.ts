@@ -21,11 +21,11 @@ map.fitBounds(
   L.latLngBounds(
     pointToLatLng({
       y: INITIAL_FINISH_POSITION.y,
-      x: INITIAL_FINISH_POSITION.x - 150,
+      x: INITIAL_FINISH_POSITION.x - 100,
     }),
     pointToLatLng({
       y: INITIAL_START_POSITION.y,
-      x: INITIAL_START_POSITION.x + 150,
+      x: INITIAL_START_POSITION.x + 100,
     })
   )
 )

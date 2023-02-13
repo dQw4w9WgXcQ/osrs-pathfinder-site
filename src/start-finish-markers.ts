@@ -5,7 +5,7 @@ import { Point, Position } from './dto'
 import { doPath } from './request-path'
 
 export const INITIAL_START_POSITION = { x: 3222, y: 3219, plane: 0 }
-export const INITIAL_FINISH_POSITION = { x: 2905, y: 3191, plane: 0 }
+export const INITIAL_FINISH_POSITION = { x: 2662, y: 3298, plane: 0 }
 
 export function addStartFinishMarkers(map: L.Map) {
   startMarker.on('dragend', () => {
