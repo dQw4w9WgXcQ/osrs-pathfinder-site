@@ -1,7 +1,7 @@
-import * as L from 'leaflet'
-import { getMarker } from './link-layer'
-import { pointToLatLng } from './util'
-import { LinkStep, LinkType, PathStep, Point, WalkStep } from './dto'
+import * as L from "leaflet"
+import { getMarker } from "./link-layer"
+import { pointToLatLng } from "./util"
+import { LinkStep, LinkType, PathStep, Point, WalkStep } from "./dto"
 
 const layer = L.layerGroup()
 
@@ -18,10 +18,10 @@ export function setPath(steps: PathStep[] | null, openTooltip: boolean) {
   const teleportPaths: Point[][] = []
   const linkPaths: Point[][] = []
   for (const step of steps) {
-    if (step.type === 'WALK') {
+    if (step.type === "WALK") {
       const walkStep = step as WalkStep
       walkPaths.push(walkStep.path)
-    } else if (step.type === 'TELEPORT') {
+    } else if (step.type === "TELEPORT") {
       // let teleportStep = step as TeleportStep
       // addTeleportMarker(teleportStep.id)
       // linkPaths.push([linkStep.link.origin, linkStep.link.destination])
@@ -31,9 +31,9 @@ export function setPath(steps: PathStep[] | null, openTooltip: boolean) {
       linkPaths.push([linkStep.link.origin, linkStep.link.destination])
     }
   }
-  addMultiPolyLine(walkPaths, 'blue')
-  addMultiPolyLine(teleportPaths, 'purple')
-  addMultiPolyLine(linkPaths, 'cyan')
+  addMultiPolyLine(walkPaths, "blue")
+  addMultiPolyLine(teleportPaths, "purple")
+  addMultiPolyLine(linkPaths, "cyan")
 }
 
 function addMultiPolyLine(path: Point[][], color: string) {

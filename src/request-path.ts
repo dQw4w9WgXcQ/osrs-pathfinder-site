@@ -1,9 +1,9 @@
-import { PathRequest, PathResponse } from './dto'
-import { setPath } from './path-layer'
-import { setTileIndicators } from './start-finish-markers'
+import { PathRequest, PathResponse } from "./dto"
+import { setPath } from "./path-layer"
+import { setTileIndicators } from "./start-finish-markers"
 
 // const URL = 'http://localhost:8080'
-const URL = 'https://pathfinder.dqw4w9wgxcq.dev/request-path'
+const URL = "https://pathfinder.dqw4w9wgxcq.dev/request-path"
 
 export function doPath(req: PathRequest) {
   processPathResponse(requestPath(req), true)
@@ -11,20 +11,20 @@ export function doPath(req: PathRequest) {
 
 export async function requestPath(req: PathRequest) {
   return fetch(URL, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(req),
   })
     .catch((error) => {
-      if (error.name === 'AbortError') {
+      if (error.name === "AbortError") {
         //todo handle timeout
       }
       throw error
     })
     .then((response) => {
-      if (!response.ok) throw new Error(response.status + ':' + response.statusText)
+      if (!response.ok) throw new Error(response.status + ":" + response.statusText)
       return response as Response
     })
     .then((response) => response.json())

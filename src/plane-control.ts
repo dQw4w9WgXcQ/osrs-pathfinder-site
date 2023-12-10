@@ -1,4 +1,4 @@
-import * as L from 'leaflet'
+import * as L from "leaflet"
 
 export const PLANE_COUNT = 4
 
@@ -17,7 +17,7 @@ export function changePlane(map: L.Map, plane: number) {
 
   currentPlane = plane
 
-  map.fire('planechange', { plane: plane })
+  map.fire("planechange", { plane: plane })
 }
 
 export function addPlaneControl(map: L.Map) {
@@ -26,21 +26,21 @@ export function addPlaneControl(map: L.Map) {
 
 const PlaneControl = L.Control.extend({
   options: {
-    position: 'topleft',
+    position: "topleft",
   },
   onAdd: function (map: L.Map) {
-    const containerName = 'leaflet-control-plane'
-    const container = L.DomUtil.create('div', `${containerName} leaflet-bar`)
+    const containerName = "leaflet-control-plane"
+    const container = L.DomUtil.create("div", `${containerName} leaflet-bar`)
 
-    const upButton = L.DomUtil.create('a', `${containerName}-up`, container)
+    const upButton = L.DomUtil.create("a", `${containerName}-up`, container)
     upButton.innerHTML = '<div style="cursor:pointer;user-select: none;">▲Z</div>'
-    upButton.title = 'Plane Up'
+    upButton.title = "Plane Up"
     upButton.onclick = () => changePlane(map, currentPlane + 1)
     L.DomEvent.disableClickPropagation(upButton)
 
-    const downButton = L.DomUtil.create('a', `${containerName}-down`, container)
+    const downButton = L.DomUtil.create("a", `${containerName}-down`, container)
     downButton.innerHTML = '<div style="cursor:pointer;user-select: none;">▼Z</div>'
-    downButton.title = 'Plane Down'
+    downButton.title = "Plane Down"
     downButton.onclick = () => changePlane(map, currentPlane - 1)
     L.DomEvent.disableClickPropagation(downButton)
 

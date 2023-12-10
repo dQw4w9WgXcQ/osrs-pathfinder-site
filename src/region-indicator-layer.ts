@@ -1,6 +1,6 @@
-import * as L from 'leaflet'
-import { PolylineOptions } from 'leaflet'
-import { toLatLng } from './util'
+import * as L from "leaflet"
+import { PolylineOptions } from "leaflet"
+import { toLatLng } from "./util"
 
 const REGION_X_MAX = 66
 const REGION_Y_MAX = 196
@@ -13,7 +13,7 @@ let regionTooltip: L.Tooltip | undefined = undefined
 export function createRegionIndicatorLayer(map: L.Map) {
   const layer = L.layerGroup()
 
-  map.on('mousemove', (e) => {
+  map.on("mousemove", (e) => {
     const regionX = Math.trunc(e.latlng.lng / REGION_SIZE)
     const xRegion = Math.trunc(e.latlng.lng) % REGION_SIZE
     const regionY = Math.trunc(e.latlng.lat / REGION_SIZE)
@@ -23,17 +23,17 @@ export function createRegionIndicatorLayer(map: L.Map) {
       regionY * REGION_SIZE + REGION_SIZE / 2 + 0.5
     )
     if (regionTooltip === undefined) {
-      regionTooltip = L.tooltip({ permanent: true, direction: 'center' })
+      regionTooltip = L.tooltip({ permanent: true, direction: "center" })
       regionTooltip.setLatLng(tooltipLatLng)
       regionTooltip.addTo(layer)
     }
 
     regionTooltip.setLatLng(tooltipLatLng)
-    regionTooltip.setContent('(' + regionX + ', ' + regionY + ') (' + xRegion + ', ' + yRegion + ')')
+    regionTooltip.setContent("(" + regionX + ", " + regionY + ") (" + xRegion + ", " + yRegion + ")")
   })
 
   const opts: PolylineOptions = {
-    color: 'black',
+    color: "black",
     weight: 1,
     interactive: false,
   }

@@ -1,5 +1,5 @@
-import * as L from 'leaflet'
-import { Point } from './dto'
+import * as L from "leaflet"
+import { Point } from "./dto"
 
 export function toBounds(latlng: L.LatLng): L.LatLngBounds {
   const lat = Math.trunc(latlng.lat)
@@ -8,7 +8,7 @@ export function toBounds(latlng: L.LatLng): L.LatLngBounds {
 }
 
 export function prettyString(s: string) {
-  return (s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).replace('_', ' ')
+  return (s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).replace("_", " ")
 }
 
 export function toLatLng(x: number, y: number) {

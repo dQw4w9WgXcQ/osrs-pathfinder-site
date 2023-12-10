@@ -1,17 +1,17 @@
-import * as L from 'leaflet'
-import { PLANE_COUNT } from './plane-control'
-import { pointToLatLng, prettyString } from './util'
-import { Link, Links, LinkType, Position } from './dto'
+import * as L from "leaflet"
+import { PLANE_COUNT } from "./plane-control"
+import { pointToLatLng, prettyString } from "./util"
+import { Link, Links, LinkType, Position } from "./dto"
 
-const stairIcon = L.icon({ iconUrl: '/stair.png', iconSize: [32, 32] })
-const doorIcon = L.icon({ iconUrl: '/door.png', iconSize: [16, 32] })
-const dungeonIcon = L.icon({ iconUrl: '/dungeon.png', iconSize: [32, 32] })
-const shipIcon = L.icon({ iconUrl: '/ship.png', iconSize: [24, 32] })
+const stairIcon = L.icon({ iconUrl: "/stair.png", iconSize: [32, 32] })
+const doorIcon = L.icon({ iconUrl: "/door.png", iconSize: [16, 32] })
+const dungeonIcon = L.icon({ iconUrl: "/dungeon.png", iconSize: [32, 32] })
+const shipIcon = L.icon({ iconUrl: "/ship.png", iconSize: [24, 32] })
 const wildernessDitchIcon = L.icon({
-  iconUrl: '/ditch.png',
+  iconUrl: "/ditch.png",
   iconSize: [17, 32],
 })
-const specialIcon = L.icon({ iconUrl: '/special.png', iconSize: [32, 32] })
+const specialIcon = L.icon({ iconUrl: "/special.png", iconSize: [32, 32] })
 
 const doorMarkers: L.Marker[] = []
 const stairMarkers: L.Marker[] = []
@@ -47,7 +47,7 @@ export function addLinkLayer(map: L.Map) {
   const wildernessDitchLayer = L.layerGroup([wildernessDitchPlaneLayers[0]])
   const specialLayer = L.layerGroup([specialPlaneLayers[0]])
 
-  map.on('planechange', (e) => {
+  map.on("planechange", (e) => {
     doorLayer.clearLayers()
     stairLayer.clearLayers()
     dungeonLayer.clearLayers()
@@ -68,13 +68,13 @@ export function addLinkLayer(map: L.Map) {
     undefined,
     {
       Doors: doorLayer,
-      'Stairs & Ladders': stairLayer,
+      "Stairs & Ladders": stairLayer,
       Dungeons: dungeonLayer,
       Ship: shipLayer,
-      'Wilderness Ditch': wildernessDitchLayer,
+      "Wilderness Ditch": wildernessDitchLayer,
       Special: specialLayer,
     },
-    { collapsed: false, position: 'bottomright' }
+    { collapsed: false, position: "bottomright" }
   )
 
   map.addControl(control)
@@ -82,17 +82,17 @@ export function addLinkLayer(map: L.Map) {
 
 export function getMarker(type: LinkType, id: number) {
   switch (type) {
-    case 'DOOR':
+    case "DOOR":
       return doorMarkers[id]
-    case 'STAIR':
+    case "STAIR":
       return stairMarkers[id]
-    case 'DUNGEON':
+    case "DUNGEON":
       return dungeonMarkers[id]
-    case 'SHIP':
+    case "SHIP":
       return shipMarkers[id]
-    case 'WILDERNESS_DITCH':
+    case "WILDERNESS_DITCH":
       return wildernessDitchMarkers[id]
-    case 'SPECIAL':
+    case "SPECIAL":
       return specialMarkers[id]
   }
 }
@@ -107,7 +107,7 @@ function addLinks(links: Link[], type: LinkType, markers: L.Marker[], icon: L.Ic
 }
 
 function toCoordString(position: Position, includePlane: boolean) {
-  return `(${position.x}, ${position.y}${includePlane ? `, ${position.plane}` : ''})`
+  return `(${position.x}, ${position.y}${includePlane ? `, ${position.plane}` : ""})`
 }
 
 function linkDescription(type: LinkType, link: Link, includePlane: boolean) {
@@ -129,10 +129,10 @@ To: ${toCoordString(link.destination, includePlane)}`
 }
 
 export async function fetchLinks() {
-  return fetch('/links.json')
+  return fetch("/links.json")
     .then((response) => {
       if (!response.ok) {
-        throw new Error(response.status + ' ' + response.statusText)
+        throw new Error(response.status + " " + response.statusText)
       }
       return response
     })
@@ -141,16 +141,16 @@ export async function fetchLinks() {
 }
 
 export function initLinks(links: Links) {
-  addLinks(links.doorLinks, 'DOOR', doorMarkers, doorIcon, doorPlaneLayers)
-  addLinks(links.stairLinks, 'STAIR', stairMarkers, stairIcon, stairPlaneLayers)
-  addLinks(links.dungeonLinks, 'DUNGEON', dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
-  addLinks(links.shipLinks, 'SHIP', shipMarkers, shipIcon, shipPlaneLayers)
+  addLinks(links.doorLinks, "DOOR", doorMarkers, doorIcon, doorPlaneLayers)
+  addLinks(links.stairLinks, "STAIR", stairMarkers, stairIcon, stairPlaneLayers)
+  addLinks(links.dungeonLinks, "DUNGEON", dungeonMarkers, dungeonIcon, dungeonPlaneLayers)
+  addLinks(links.shipLinks, "SHIP", shipMarkers, shipIcon, shipPlaneLayers)
   addLinks(
     links.wildernessDitchLinks,
-    'WILDERNESS_DITCH',
+    "WILDERNESS_DITCH",
     wildernessDitchMarkers,
     wildernessDitchIcon,
     wildernessDitchPlaneLayers
   )
-  addLinks(links.specialLinks, 'SPECIAL', specialMarkers, specialIcon, specialPlaneLayers)
+  addLinks(links.specialLinks, "SPECIAL", specialMarkers, specialIcon, specialPlaneLayers)
 }
