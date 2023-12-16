@@ -2,7 +2,7 @@ import { PathRequest, PathResponse } from "./dto"
 import { setPath } from "./path-layer"
 import { setTileIndicators } from "./start-finish-markers"
 
-// const URL = 'http://localhost:8080'
+// const URL = "http://localhost:8080/request-path"
 const URL = "https://pathfinder.dqw4w9wgxcq.dev/request-path"
 
 export function doPath(req: PathRequest) {
