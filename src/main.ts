@@ -10,7 +10,7 @@ import { processPathResponse, requestPath } from "./request-path"
 import { pointToLatLng } from "./util"
 
 const pendingLinks = fetchLinks()
-const pendingPathRequest = requestPath({
+const pendingInitialPathRequest = requestPath({
   start: INITIAL_START_POSITION,
   finish: INITIAL_FINISH_POSITION,
 })
@@ -41,5 +41,5 @@ addPlaneControl(map)
 
 pendingLinks
   .then((links) => initLinks(links))
-  .then(() => processPathResponse(pendingPathRequest, false))
+  .then(() => processPathResponse(pendingInitialPathRequest, false))
   .catch((e) => console.error(e)) //fetch links failed

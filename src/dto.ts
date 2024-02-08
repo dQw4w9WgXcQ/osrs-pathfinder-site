@@ -8,6 +8,7 @@ export type Position = Point & {
 }
 
 export type Link = {
+  type: LinkType
   id: number
   origin: Position
   destination: Position
@@ -45,27 +46,23 @@ export type Links = {
   specialLinks: SpecialLink[]
 }
 
-export type Path = {
-  steps: PathStep[]
-}
+export type StepType = "LINK" | "WALK" | "TELEPORT"
 
-export type StepType = LinkType | "WALK" | "TELEPORT"
-
-export type PathStep = {
+export type Step = {
   type: StepType
 }
 
-export type LinkStep = PathStep & {
-  type: LinkType
+export type LinkStep = Step & {
+  type: StepType
   link: Link
 }
 
-export type WalkStep = PathStep & {
+export type WalkStep = Step & {
   plane: number
   path: Point[]
 }
 
-export type TeleportStep = PathStep & {
+export type TeleportStep = Step & {
   name: string
   origin: Position
   destination: Position
@@ -77,6 +74,13 @@ export type Agent = {
   quests: string[]
 }
 
+export type PathfindingResult = {
+  type: "SUCCESS" | "BLOCKED" | "UNREACHABLE"
+  start: Position | undefined
+  finish: Position | undefined
+  steps: Step[] | undefined
+}
+
 export type PathRequest = {
   start: Position
   finish: Position
@@ -84,7 +88,6 @@ export type PathRequest = {
 }
 
 export type PathResponse = {
-  start: Position
-  finish: Position
-  steps: PathStep[] | null
+  time: number
+  result: PathfindingResult
 }

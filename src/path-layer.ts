@@ -1,7 +1,7 @@
 import * as L from "leaflet"
 import { getMarker } from "./link-layer"
 import { pointToLatLng } from "./util"
-import { LinkStep, LinkType, PathStep, Point, WalkStep } from "./dto"
+import { LinkStep, LinkType, Point, Step, WalkStep } from "./dto"
 
 const layer = L.layerGroup()
 
@@ -9,16 +9,22 @@ export function addPathLayer(map: L.Map) {
   map.addLayer(layer)
 }
 
-export function setPath(steps: PathStep[] | null, openTooltip: boolean) {
+export function clearPath(){
   layer.clearLayers()
+}
 
-  if (steps === null) return
+export function setPath(steps: Step[], openTooltip: boolean) {
+  clearPath()
 
   const walkPaths: Point[][] = []
   const teleportPaths: Point[][] = []
   const linkPaths: Point[][] = []
   for (const step of steps) {
-    if (step.type === "WALK") {
+    if (step.type === "LINK") {
+      const linkStep = step as LinkStep
+      addLinkMarker(linkStep.link.type, linkStep.link.id, openTooltip)
+      linkPaths.push([linkStep.link.origin, linkStep.link.destination])
+    } else if (step.type === "WALK") {
       const walkStep = step as WalkStep
       walkPaths.push(walkStep.path)
     } else if (step.type === "TELEPORT") {
@@ -26,9 +32,7 @@ export function setPath(steps: PathStep[] | null, openTooltip: boolean) {
       // addTeleportMarker(teleportStep.id)
       // linkPaths.push([linkStep.link.origin, linkStep.link.destination])
     } else {
-      const linkStep = step as LinkStep
-      addLinkMarker(linkStep.type, linkStep.link.id, openTooltip)
-      linkPaths.push([linkStep.link.origin, linkStep.link.destination])
+      throw new Error(`Unknown step type: ${(step as Step).type}`)
     }
   }
   addMultiPolyLine(walkPaths, "blue")

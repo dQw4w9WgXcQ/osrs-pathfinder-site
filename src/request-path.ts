@@ -1,9 +1,9 @@
 import { PathRequest, PathResponse } from "./dto"
-import { setPath } from "./path-layer"
+import { clearPath, setPath } from "./path-layer"
 import { setTileIndicators } from "./start-finish-markers"
 
-// const URL = "http://localhost:8080/request-path"
-const URL = "https://pathfinder.dqw4w9wgxcq.dev/request-path"
+// const URL = "http://localhost:8080/find-path"
+const URL = "https://osrspathfinder.com/find-path"
 
 export function doPath(req: PathRequest) {
   processPathResponse(requestPath(req), true)
@@ -31,11 +31,18 @@ export async function requestPath(req: PathRequest) {
     .then((data) => data as PathResponse)
 }
 
-export function processPathResponse(pendingPathResposne: Promise<PathResponse>, openTooltip: boolean) {
-  pendingPathResposne
+export function processPathResponse(pendingPathResponse: Promise<PathResponse>, openTooltip: boolean) {
+  pendingPathResponse
     .then((res) => {
-      setPath(res.steps, openTooltip)
-      setTileIndicators(res.start, res.finish)
+      const result = res.result
+      if (result.type !== "SUCCESS") {
+        console.log("Pathfinding failed: " + result.type)//todo toast user
+        clearPath()
+        return
+      }
+
+      setPath(result.steps!, openTooltip)
+      setTileIndicators(result.start!, result.finish!)
     })
-    .catch((e) => console.error(e)) //todo toast user
+    .catch((e) => console.error(e))
 }

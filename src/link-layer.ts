@@ -94,6 +94,8 @@ export function getMarker(type: LinkType, id: number) {
       return wildernessDitchMarkers[id]
     case "SPECIAL":
       return specialMarkers[id]
+    default:
+      throw new Error(`unknown link type: ${type}`)
   }
 }
 
