@@ -9,7 +9,7 @@ export function addPathLayer(map: L.Map) {
   map.addLayer(layer)
 }
 
-export function clearPath(){
+export function clearPath() {
   layer.clearLayers()
 }
 

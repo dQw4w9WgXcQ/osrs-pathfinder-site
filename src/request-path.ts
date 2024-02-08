@@ -36,7 +36,7 @@ export function processPathResponse(pendingPathResponse: Promise<PathResponse>, 
     .then((res) => {
       const result = res.result
       if (result.type !== "SUCCESS") {
-        console.log("Pathfinding failed: " + result.type)//todo toast user
+        console.log("Pathfinding failed: " + result.type) //todo toast user
         clearPath()
         return
       }
