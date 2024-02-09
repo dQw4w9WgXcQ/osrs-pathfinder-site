@@ -37,12 +37,15 @@ export function processPathResponse(pendingPathResponse: Promise<PathResponse>, 
       const result = res.result
       if (result.type !== "SUCCESS") {
         console.log("Pathfinding failed: " + result.type) //todo toast user
-        clearPath()
-        return
       }
 
-      setPath(result.steps!, openTooltip)
-      setTileIndicators(result.start!, result.finish!)
+      if (result.steps) {
+        setPath(result.steps, openTooltip)
+      } else {
+        clearPath()
+      }
+
+      setTileIndicators(result.start, result.finish)
     })
     .catch((e) => console.error(e))
 }

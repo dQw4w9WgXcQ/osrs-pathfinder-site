@@ -31,9 +31,14 @@ export function addStartFinishMarkers(map: L.Map) {
   finishMarker.openPopup()
 }
 
-export function setTileIndicators(start: Point, finish: Point) {
-  startTile.setBounds(toBounds(pointToLatLng(start)))
-  finishTile.setBounds(toBounds(pointToLatLng(finish)))
+export function setTileIndicators(start: Point | undefined, finish: Point | undefined) {
+  if (start) {
+    startTile.setBounds(toBounds(pointToLatLng(start)))
+  }
+
+  if (finish) {
+    finishTile.setBounds(toBounds(pointToLatLng(finish)))
+  }
 }
 
 let startPosition = INITIAL_START_POSITION
