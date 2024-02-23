@@ -1,4 +1,6 @@
 {
-  "semi": false,
-  "printWidth": 120
+	"semi": false,
+	"printWidth": 120,
+	"useTabs": true,
+	"tabWidth": 4
 }

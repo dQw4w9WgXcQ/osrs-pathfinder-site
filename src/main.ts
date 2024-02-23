@@ -11,23 +11,23 @@ import { pointToLatLng } from "./util"
 
 const pendingLinks = fetchLinks()
 const pendingInitialPathRequest = requestPath({
-  start: INITIAL_START_POSITION,
-  finish: INITIAL_FINISH_POSITION,
+	start: INITIAL_START_POSITION,
+	finish: INITIAL_FINISH_POSITION,
 })
 
 const map = L.map("map", { crs: L.CRS.Simple })
 
 map.fitBounds(
-  L.latLngBounds(
-    pointToLatLng({
-      y: INITIAL_FINISH_POSITION.y,
-      x: INITIAL_FINISH_POSITION.x - 100,
-    }),
-    pointToLatLng({
-      y: INITIAL_START_POSITION.y,
-      x: INITIAL_START_POSITION.x + 100,
-    })
-  )
+	L.latLngBounds(
+		pointToLatLng({
+			y: INITIAL_FINISH_POSITION.y,
+			x: INITIAL_FINISH_POSITION.x - 100,
+		}),
+		pointToLatLng({
+			y: INITIAL_START_POSITION.y,
+			x: INITIAL_START_POSITION.x + 100,
+		})
+	)
 )
 
 document.getElementById("map")?.style.setProperty("cursor", "url(/cursor-dragon-scimitar.png), auto")
@@ -40,6 +40,6 @@ addPathLayer(map)
 addPlaneControl(map)
 
 pendingLinks
-  .then((links) => initLinks(links))
-  .then(() => processPathResponse(pendingInitialPathRequest, false))
-  .catch((e) => console.error(e)) //fetch links failed
+	.then((links) => initLinks(links))
+	.then(() => processPathResponse(pendingInitialPathRequest, false))
+	.catch((e) => console.error(e)) //fetch links failed
