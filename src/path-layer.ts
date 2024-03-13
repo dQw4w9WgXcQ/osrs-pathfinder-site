@@ -23,14 +23,14 @@ export function setPath(steps: Step[], openTooltip: boolean) {
 		if (step.type === "LINK") {
 			const linkStep = step as LinkStep
 			addLinkMarker(linkStep.link.type, linkStep.link.id, openTooltip)
-			linkPaths.push([linkStep.link.origin, linkStep.link.destination])
+			linkPaths.push([linkStep.link.start, linkStep.link.end])
 		} else if (step.type === "WALK") {
 			const walkStep = step as WalkStep
 			walkPaths.push(walkStep.path)
 		} else if (step.type === "TELEPORT") {
 			// let teleportStep = step as TeleportStep
 			// addTeleportMarker(teleportStep.id)
-			// linkPaths.push([linkStep.link.origin, linkStep.link.destination])
+			// linkPaths.push([linkStep.link.start, linkStep.link.end])
 		} else {
 			throw new Error(`Unknown step type: ${(step as Step).type}`)
 		}

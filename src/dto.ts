@@ -10,8 +10,8 @@ export type Position = Point & {
 export type Link = {
 	type: LinkType
 	id: number
-	origin: Position
-	destination: Position
+	start: Position
+	end: Position
 }
 
 export type DoorLink = Link & {
@@ -64,8 +64,8 @@ export type WalkStep = Step & {
 
 export type TeleportStep = Step & {
 	name: string
-	origin: Position
-	destination: Position
+	start: Position
+	end: Position
 }
 
 export type Agent = {
@@ -77,14 +77,17 @@ export type Agent = {
 export type PathfindingResult = {
 	type: "SUCCESS" | "BLOCKED" | "UNREACHABLE"
 	start: Position | undefined
-	finish: Position | undefined
+	end: Position | undefined
 	steps: Step[] | undefined
 }
 
+export type Algo = "A_STAR" | "BFS"
+
 export type PathRequest = {
 	start: Position
-	finish: Position
+	end: Position
 	agent?: Agent
+	algo: Algo
 }
 
 export type PathResponse = {

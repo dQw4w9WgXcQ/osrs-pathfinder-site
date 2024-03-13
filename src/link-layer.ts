@@ -101,10 +101,10 @@ export function getMarker(type: LinkType, id: number) {
 
 function addLinks(links: Link[], type: LinkType, markers: L.Marker[], icon: L.Icon, planeLayers: L.LayerGroup[]) {
 	links.forEach((link) => {
-		const marker = L.marker(pointToLatLng(link.origin), { icon: icon })
-		marker.bindTooltip(linkDescription(type, link, link.origin.plane !== link.destination.plane))
+		const marker = L.marker(pointToLatLng(link.start), { icon: icon })
+		marker.bindTooltip(linkDescription(type, link, link.start.plane !== link.end.plane))
 		markers.push(marker)
-		marker.addTo(planeLayers[link.origin.plane])
+		marker.addTo(planeLayers[link.start.plane])
 	})
 }
 
@@ -124,10 +124,10 @@ function linkDescription(type: LinkType, link: Link, includePlane: boolean) {
 	//
 	// return `${prettyString(type)}#${link.id}<br>
 	// ${objectIdMessage}
-	// From: ${toCoordString(link.origin, includePlane)}<br>
-	// To: ${toCoordString(link.destination, includePlane)}`;
+	// From: ${toCoordString(link.start, includePlane)}<br>
+	// To: ${toCoordString(link.end, includePlane)}`;
 	return `${prettyString(type)}#${link.id}<br>
-To: ${toCoordString(link.destination, includePlane)}`
+To: ${toCoordString(link.end, includePlane)}`
 }
 
 export async function fetchLinks() {

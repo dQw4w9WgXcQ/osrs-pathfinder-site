@@ -1,6 +1,6 @@
 import { PathRequest, PathResponse } from "./dto"
 import { clearPath, setPath } from "./path-layer"
-import { setTileIndicators } from "./start-finish-markers"
+import { setTileIndicators } from "./start-end-markers"
 
 // const URL = "http://localhost:8080/find-path"
 const URL = "https://osrspathfinder.com/find-path"
@@ -45,7 +45,7 @@ export function processPathResponse(pendingPathResponse: Promise<PathResponse>, 
 				clearPath()
 			}
 
-			setTileIndicators(result.start, result.finish)
+			setTileIndicators(result.start, result.end)
 		})
 		.catch((e) => console.error(e))
 }
