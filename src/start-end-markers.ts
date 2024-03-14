@@ -4,8 +4,8 @@ import { latLngToPoint, pointToLatLng, toBounds } from "./util"
 import { Algo, Point, Position } from "./dto"
 import { doPath } from "./request-path"
 
-export const INITIAL_START_POSITION = { x: 3222, y: 3219, plane: 0 }
-export const INITIAL_END_POSITION = { x: 2662, y: 3298, plane: 0 }
+export const INITIAL_START_POSITION: Position = { x: 3222, y: 3219, plane: 0 }
+export const INITIAL_END_POSITION: Position = { x: 2662, y: 3298, plane: 0 }
 
 export function addStartEndMarkers(map: L.Map) {
 	startMarker.on("dragend", () => {
@@ -110,7 +110,7 @@ export function addAlgoControl(map: L.Map) {
 	map.addControl(new AlgoControl())
 }
 
-export let currentAlgo: Algo = "BFS"
+export let currentAlgo: Algo = "A_STAR"
 const AlgoControl = L.Control.extend({
 	options: {
 		position: "bottomright",
@@ -122,8 +122,8 @@ const AlgoControl = L.Control.extend({
 
 		const select = L.DomUtil.create("select", `${containerName}-select`, container)
 		select.innerHTML = `
-			<option value="BFS">BFS</option>
 			<option value="A_STAR">A*</option>
+			<option value="BFS">BFS</option>
 		`
 		select.value = currentAlgo
 		select.onchange = () => {
